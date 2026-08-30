@@ -1,21 +1,41 @@
 class Solution {
     public boolean canPlaceFlowers(int[] f, int n) {
+        if(n==0) return true;
+        if(n==1&&f[0]==0&&f.length==1) return true;
         int ctr=0;
-        if(f[0]==0&&f[1]==0){
-            f[0]=1;ctr++;
-        }
-        for(int i=1;i<f.length-1;i++){
-            if(f[i-1]==0 && f[i]==0 && f[i+1]==0){
-                f[i]=1;ctr++;
+        for(int i=0;i<f.length;i++){
+            if(i==0){
+                if(f[i]!=1&&f[i+1]!=1){
+                    f[i]=1;
+                    ctr++;
+                    if(iG(n, ctr)){
+                        return true;
+                    }
+                }
+            }else if(i==f.length-1){
+                if(f[i]!=1&&f[i-1]!=1){
+                    f[i]=1;
+                    ctr++;
+                    if(iG(n, ctr)){
+                        return true;
+                    }
+                }
+            }else{
+                if(f[i-1]==0&&f[i]==0&&f[i+1]==0){
+                    f[i]=1;
+                    ctr++;
+                    if(iG(n, ctr)){
+                        return true;
+                    }
+                }
             }
         }
-        if(f[f.length-1]==0 && f[f.length-2]==0){
-            f[f.length-1]=1;ctr++;
-        }
+        return false;
+    }
+    public boolean iG(int n, int ctr){
         if(ctr>=n){
             return true;
-        }else{
-            return false;
         }
+        return false;
     }
 }
